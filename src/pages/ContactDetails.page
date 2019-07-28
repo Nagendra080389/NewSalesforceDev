@@ -1,0 +1,58 @@
+<!--
+ - Created by Nagendra on 13-04-2019.
+ -->
+
+<apex:page id="ContactDetails" extensions="ContactsController" standardController="Case" lightningStylesheets="true" showHeader="false">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <style>
+        textarea {
+            width: inherit;
+        }
+
+        select {
+            width: inherit;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+        });
+
+        window.addEventListener('message', function (objEvent) {
+            if(objEvent !== undefined && objEvent !== null && objEvent.data !== undefined && objEvent.data !== null && typeof objEvent.data === 'string'){
+                console.log(objEvent.data);
+            }
+        })
+
+        function showFieldsOnClickAction() {
+            showFieldsAction();
+        }
+
+        function fireOnComplete() {
+            $('.case-section').children().each(function () {
+                let intDivWidth = $(this).width() / $(this).parent().width() * 100;
+                if (intDivWidth === 50) {
+                    $(this).next().css('')
+                }
+            })
+        }
+    </script>
+
+    <apex:form >
+        <button name="showFields" onclick="showFieldsOnClickAction(); return false;">ShowFields</button>
+        <apex:actionFunction name="showFieldsAction" action="{!fecthListAPINamesFromCase}" reRender="showFields"
+                             onComplete="fireOnComplete()"/>
+        <apex:outputPanel id="showFields">
+            <div class="case-section">
+                <apex:repeat value="{!lstCaseAPIName}" var="eachApiName">
+                    <div style="width: calc(100%/{!eachApiName.columnNumber})">
+                        <apex:inputField value="{!Case[eachApiName.apiName]}"/>
+                    </div>
+                </apex:repeat>
+            </div>
+        </apex:outputPanel>
+
+    </apex:form>
+</apex:page>

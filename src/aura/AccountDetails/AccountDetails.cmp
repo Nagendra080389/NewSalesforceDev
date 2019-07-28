@@ -1,0 +1,21 @@
+<!--
+ - Created by Nagendra on 13-04-2019.
+ -->
+
+<aura:component description="AccountDetails" controller="AccountsController" access="global"
+                implements="lightning:actionOverride,force:hasRecordId,force:hasSObjectName,flexipage:availableForAllPageTypes">
+    <ltng:require scripts="{!$Resource.jqueryV1}" afterScriptsLoaded="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:workspaceAPI aura:id="workspace"/>
+
+    <aura:attribute name="lstAccounts" type="List" access="public"/>
+
+    <lightning:card>
+        <lightning:select name="select" label="Select an Account" required="true" onchange="{!c.accountChanged}">
+            <aura:iteration items="{!v.lstAccounts}" var="eachAccount">
+                <option value="{!eachAccount.Id}">{!eachAccount.Name}</option>
+            </aura:iteration>
+        </lightning:select>
+    </lightning:card>
+
+</aura:component>

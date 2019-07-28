@@ -1,0 +1,19 @@
+<!--
+ - Created by Nagendra on 13-04-2019.
+ -->
+
+<aura:component description="AddressDetails" controller="AddressController" access="global" implements="flexipage:availableForAllPageTypes">
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="lstAddreses" type="List" access="public"/>
+    <lightning:card>
+            <aura:iteration items="{!v.lstAddreses}" var="eachAddress">
+                {!eachAddress.Account__r.BillingAddress.city}<br />
+                {!eachAddress.Account__r.BillingAddress.country}<br />
+                {!eachAddress.Account__r.BillingAddress.postalCode}<br />
+                {!eachAddress.Account__r.BillingAddress.state}<br />
+                {!eachAddress.Account__r.BillingAddress.street}<br />
+            </aura:iteration>
+    </lightning:card>
+</aura:component>
